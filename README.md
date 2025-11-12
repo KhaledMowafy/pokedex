@@ -1,75 +1,116 @@
-# React + TypeScript + Vite
+# 🧪 Pokémon Browser – Clean Architecture (React + TypeScript)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive Pokémon browser built with **React 19 + TypeScript + Tailwind CSS**, following **Clean Architecture** and **Atomic Design** principles.  
+Deployed easily via **Vercel**, **Netlify**, or **Cloudflare Pages**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧭 Overview
 
-## React Compiler
+Users can:
+- View Pokémon in two modes:
+  - **Pagination** (page numbers + next/previous)
+  - **Load More** (infinite scroll style)
+- View a **detailed page** for each Pokémon:
+  - Name, sprite, stats, types, height, weight, base experience, and abilities
+- Enjoy a **responsive**, clean, and testable architecture.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+---
 
-Note: This will impact Vite dev & build performances.
+## 🧱 Architecture Overview
 
-## Expanding the ESLint configuration
+```mermaid
+graph TD
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+A[UI Components React] --> B[Presentation Layer]
+B --> C[UseCases Application]
+C --> D[Repositories Interfaces]
+D --> E[Infrastructure HTTP + API]
+E --> F[PokeAPI REST Service]
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- Presentation (React) → contains components built using Atomic Design.
+- Domain → pure business logic: entities, use cases, repository contracts.
+- Infrastructure → implements repositories using HTTP + PokeAPI.
+- Data Flow is unidirectional and easily testable.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🗂️ Folder Structure
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```mermaid
+graph TD
+root[📁 src] --> A[domain]
+root --> B[infrastructure]
+root --> C[presentation]
+root --> D[lib]
+root --> E[utils]
+root --> F[routes.tsx]
+
+A --> A1[entities]
+A --> A2[usecases]
+A --> A3[repositories]
+
+B --> B1[http]
+B --> B2[repositories]
+
+C --> C1[components]
+C --> C2[pages]
+C1 --> C3[atoms]
+C1 --> C4[molecules]
+C1 --> C5[organisms]
+C --> C6[providers]
+```
+
+## 🔄 Data Flow
+```mermaid
+sequenceDiagram
+    participant UI as React Component
+    participant UC as UseCase
+    participant Repo as Repository Interface
+    participant API as PokeAPI Adapter
+    participant HTTP as HTTP Client
+    participant PokeAPI as PokeAPI Server
+
+    UI->>UC: execute(params)
+    UC->>Repo: list() / getById()
+    Repo->>API: HTTP request
+    API->>HTTP: fetch(url)
+    HTTP->>PokeAPI: GET /pokemon
+    PokeAPI-->>HTTP: JSON response
+    HTTP-->>API: data
+    API-->>Repo: mapped entities
+    Repo-->>UC: domain models
+    UC-->>UI: display-ready data
+```
+## 🎨 UI Design Highlights
+
+- Responsive grid for Pokémon cards (2 → 6 columns)
+- Gradient header for details
+- Stats visualized as progress bars
+- Type chips with colored badges
+- Modern soft background gradients per view:
+    - /pagination → bg-[#E5EAFE]
+    - /load-more → bg-[#DEFAEB]
+ 
+## 🧩 Atomic Design Breakdown
+```mermaid
+  graph TD
+A[Atoms] --> B[Molecules]
+B --> C[Organisms]
+C --> D[Pages]
+D --> E[App]
+```
+
+## 🚀 Running Locally
+
+```
+# 1. Install dependencies
+npm install     # or: pnpm i / yarn
+
+# 2. Run dev server
+npm run dev     # default: http://localhost:5173
+
+# 3. Build for production
+npm run build
 ```
