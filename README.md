@@ -3,6 +3,8 @@
 A responsive Pokémon browser built with **React 19 + TypeScript + Tailwind CSS**, following **Clean Architecture** and **Atomic Design** principles.  
 Deployed easily via **Vercel**, **Netlify**, or **Cloudflare Pages**.
 
+live demo: https://pokedex-mocha-nine-42.vercel.app/
+
 ---
 
 ## 🧭 Overview
