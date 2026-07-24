@@ -1,6 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {PokemonCard} from "./presentation/components/PokemonCard";
+import {PokemonGrid} from "./presentation/components/PokemonGrid";
 import type { Pokemon } from "./domain/entities/Pokemon";
+import { LoadingSkeleton } from "./presentation/components/LoadingSkeleton";
+import { ErrorState } from "./presentation/components/ErrorState";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -21,6 +24,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <PokemonCard pokemon={dummyPokemon} />
+      <PokemonGrid pokemons={[dummyPokemon, dummyPokemon, dummyPokemon, dummyPokemon]} />
+      <LoadingSkeleton />
+      <ErrorState onRetry={() => {}} />
     </QueryClientProvider>
   );
 }
