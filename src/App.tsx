@@ -6,6 +6,7 @@ import type { Pokemon } from "./domain/entities/Pokemon";
 import { LoadingSkeleton } from "./presentation/components/LoadingSkeleton";
 import { ErrorState } from "./presentation/components/ErrorState";
 import {usePokemonPagination} from "./presentation/hooks/usePokemonPagination";
+import { Pagination } from "./presentation/components/Pagination";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -31,6 +32,7 @@ const [page, setPage] = useState(0);
       <PokemonGrid pokemons={[dummyPokemon, dummyPokemon, dummyPokemon, dummyPokemon]} />
       <LoadingSkeleton />
       <ErrorState onRetry={() => {}} />
+        <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
     </QueryClientProvider>
   );
 }
