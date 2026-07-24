@@ -7,6 +7,7 @@ import { LoadingSkeleton } from "./presentation/components/LoadingSkeleton";
 import { ErrorState } from "./presentation/components/ErrorState";
 import {usePokemonPagination} from "./presentation/hooks/usePokemonPagination";
 import { Pagination } from "./presentation/components/Pagination";
+import {PokedexHeader} from "./presentation/components/PokedexHeader";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -28,6 +29,7 @@ const [page, setPage] = useState(0);
   const { items, totalPages, loading, error, retry } = usePokemonPagination(page, 20);
   return (
     <QueryClientProvider client={queryClient}>
+       <PokedexHeader tagline="Discover and explore Pokemon with page controls" />
       <PokemonCard pokemon={dummyPokemon} />
       <PokemonGrid pokemons={[dummyPokemon, dummyPokemon, dummyPokemon, dummyPokemon]} />
       <LoadingSkeleton />
