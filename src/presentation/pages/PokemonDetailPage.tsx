@@ -6,7 +6,6 @@ import { getTypeColorClasses } from "../utils/typeColors";
 
 export function PokemonDetailPage() {
   const { id } = useParams<{ id: string }>();
-// const id = 4;
   const { pokemon, loading, error, retry } = usePokemonDetail(id);
 
   return (
