@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {PokedexLoadMorePage} from "./presentation/pages/PokedexLoadMorePage";
+import { PokemonDetailPage } from "./presentation/pages/PokemonDetailPage";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -13,7 +13,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-        <PokedexLoadMorePage />
+        <PokemonDetailPage />
     </QueryClientProvider>
   );
 }

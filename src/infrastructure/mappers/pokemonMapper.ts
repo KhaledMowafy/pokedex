@@ -13,6 +13,7 @@ export function mapListItemToPokemon(raw: any): Pokemon {
     name: raw.name,
     pokedexNumber: formatPokedexNumber(raw.id),
     imageUrl:
+      raw.sprites?.other?.["official-artwork"]?.front_default ??
       raw.sprites?.front_default ??
       "",
   };
