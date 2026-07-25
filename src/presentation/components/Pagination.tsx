@@ -29,7 +29,7 @@ export function Pagination({ page, totalPages, itemsShown, onPageChange }: Pagin
   const isLast = page >= totalPages - 1;
 
   const navBtn = (disabled: boolean) =>
-    `shrink-0 rounded-full border px-3 py-1.5 text-sm font-medium transition ${
+    `shrink-0 rounded-full border px-3 py-1.5 text-sm font-medium transition cursor-pointer ${
       disabled
         ? "border-gray-200 bg-gray-100 text-gray-400"
         : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"

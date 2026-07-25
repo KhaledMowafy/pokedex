@@ -1,5 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { PokemonDetailPage } from "./presentation/pages/PokemonDetailPage";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./presentation/router";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -10,10 +12,9 @@ const queryClient = new QueryClient({
 });
 
 function App() {
-
   return (
     <QueryClientProvider client={queryClient}>
-        <PokemonDetailPage />
+        <RouterProvider router={router} />
     </QueryClientProvider>
   );
 }
